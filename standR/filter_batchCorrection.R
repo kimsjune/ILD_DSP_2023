@@ -1,3 +1,9 @@
+### remove ROIs with low % alignement OR sequencing saturation
+
+qc <- colData(speGQC)$AlignedReads/colData(speGQC)$RawReads >=0.9 & colData(speGQC)$SequencingSaturation >=90
+table(qc)
+speFinal <- speGQC[,qc]
+
 ### batch correction with RUV
 speRUV <- findNCGs(speFinal, batch_name="patid", top_n=200)
 for(i in seq(4)){
