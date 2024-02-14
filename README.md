@@ -1,1 +1,1 @@
-This repo hosts scripts used to process and visualize data shown in [manuscript].
+This repo hosts sample scripts used to process and visualize data shown in [manuscript].
