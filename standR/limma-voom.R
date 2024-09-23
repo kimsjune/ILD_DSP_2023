@@ -10,7 +10,8 @@ library(limma)
 
 dge <- SE2DGEList(spe_ruv)
 
-design <- model.matrix(~0 + anno_type + ruv_W1 + ruv_W2 + ruv_W3 + ruv_W4,
+# include sex and sample prep batch
+design <- model.matrix(~0 + anno_type + Sex + batch + ruv_W1 + ruv_W2 + ruv_W3 + ruv_W4,
                        data = colData(spe_ruv))
 colnames(design) <- gsub("anno_type","", colnames(design))
 colnames(design)

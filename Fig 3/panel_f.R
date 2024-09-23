@@ -5,19 +5,20 @@ y <- readRDS("./../bulk/dge_final/y.rds")
 meta <- readRDS("./../bulk/dge_final/meta.rds")
 
 # subset cpm count table
+# indented samples are not matched with Nanostring 
 lcpm_subset_bulk <- cbind(
   edgeR::cpm(y)[,"M25"], #NSIP
   edgeR::cpm(y)[,"M29"],
   edgeR::cpm(y)[,"M33"],
   
   edgeR::cpm(y)[,"M3"], #CHP
- # edgeR::cpm(y)[,"M32"],
+     edgeR::cpm(y)[,"M32"],
   edgeR::cpm(y)[,"M35"],
- # edgeR::cpm(y)[,"M38"],
-  #edgeR::cpm(y)[,"M44"],
+      edgeR::cpm(y)[,"M38"],
+      edgeR::cpm(y)[,"M44"],
   
   edgeR::cpm(y)[,"M24"], #IPF
- # edgeR::cpm(y)[,"M34"],
+      edgeR::cpm(y)[,"M34"],
   edgeR::cpm(y)[,"M37"]
   
 )
