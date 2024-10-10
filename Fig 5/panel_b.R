@@ -225,6 +225,7 @@ hm.bar_anno <- ggplot(data=bar_anno.melt,
   
   scale_fill_manual(values=c(
     "central_NSIP" = "#e37e00",
+    "peripheral_NSIP" = "#e37e00",
     
     "fibroblast_IPF" = "#90353B",
     "fibrosis_IPF" = "#C85E78",
@@ -257,6 +258,7 @@ hm.bar_anno <- ggplot(data=bar_anno.melt,
   ),
   labels=c(
     "central_NSIP" = "NSIP",
+    "peripheral_NSIP" = "NSIP",
     "fibroblast_IPF" = "FF IPF",
     "fibrosis_CHP" = "CHP",
     "fibrosis_IPF" = "IPF",

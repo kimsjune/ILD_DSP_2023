@@ -32,12 +32,12 @@ dge_all <- readRDS(file="./../dge_all.rds")
 
 
 con <- makeContrasts(
-  fibrosis_CHP_v_central_NSIP = fibrosis_CHP - central_NSIP,
+  fibrosis_CHP_v_central_NSIP = fibrosis_CHP - (central_NSIP+peripheral_NSIP)/2,
   fibrosis_IPF_v_fibroblast_IPF = fibrosis_IPF - fibroblast_IPF,
-  fibrosis_IPF_v_central_NSIP = fibrosis_IPF - central_NSIP,
+  fibrosis_IPF_v_central_NSIP = fibrosis_IPF - (central_NSIP+peripheral_NSIP)/2,
   fibrosis_CHP_v_fibroblast_IPF = fibrosis_CHP - fibroblast_IPF,
   fibrosis_CHP_v_fibrosis_IPF = fibrosis_CHP - fibrosis_IPF,
-  fibroblast_IPF_v_central_NSIP =  fibroblast_IPF - central_NSIP,
+  fibroblast_IPF_v_central_NSIP =  fibroblast_IPF - (central_NSIP+peripheral_NSIP)/2,
 
 
   levels=design)
@@ -57,6 +57,7 @@ topGenes <- topTable(efit, coef=c(4,6), n=50,   p.value=0.05, adjust.method="BH"
 
 lcpm_subset <- cbind(
   assay(spe_ruv_subset,2)[, colData(spe_ruv_subset)$anno_type=="central_NSIP"],
+  assay(spe_ruv_subset,2)[, colData(spe_ruv_subset)$anno_type=="periphearl_NSIP"],
   assay(spe_ruv_subset,2)[, colData(spe_ruv_subset)$anno_type=="fibrosis_CHP"],
   assay(spe_ruv_subset,2)[, colData(spe_ruv_subset)$anno_type=="fibrosis_IPF"],
   assay(spe_ruv_subset,2)[, colData(spe_ruv_subset)$anno_type=="fibroblast_IPF"]
@@ -118,13 +119,13 @@ chm <- Heatmap(lcpm_subset_scale_topGenes,
         #right_annotation=ha,
         top_annotation = HeatmapAnnotation(
           foo= anno_block(gp = gpar(lty=0, fill="transparent"), 
-                          labels = c("Central F. NSIP", "Fibrosis CHP", "Fibrosis IPF", "F.foci IPF"),
+                          labels = c("Central F. NSIP", "Peripheral F. NSIP", "Fibrosis CHP", "Fibrosis IPF", "F.foci IPF"),
                           labels_gp = gpar(col="black", fontsize=7, fontfamily='sans', fontface='bold'),
                           labels_rot=20, labels_just = "center", labels_offset = unit(4,"mm"))
         ),
         
         cluster_rows = dxt, row_dend_gp = gpar(lwd=0.5), row_split = 2, row_title=NULL,
-        column_split = rep(LETTERS[1:4], times=rep(9,4)) , column_title= NULL, column_gap = unit(0.2,"mm"),
+        column_split = rep(LETTERS[1:5], times=rep(9,5)) , column_title= NULL, column_gap = unit(0.2,"mm"),
         border_gp =  gpar(col="black", lwd=0.2),
         show_column_names = F,
         row_names_gp = gpar(fontfamily = 'sans', fontface = 'italic', fontsize = 5),
